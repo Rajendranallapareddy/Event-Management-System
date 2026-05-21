@@ -1,0 +1,10 @@
+<div class="container mt-4">
+  <h2>Mark Attendance</h2>
+  <div class="list-group mt-3">
+    <div *ngFor="let reg of registrations" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>{{ reg.eventTitle }} - Registered: {{ reg.registrationDate | date:'shortDate' }}</div>
+      <div><span class="badge me-2" [ngClass]="reg.attendanceStatus ? 'bg-success' : 'bg-secondary'">{{ reg.attendanceStatus ? 'Attended' : 'Not Yet' }}</span>
+      <button class="btn btn-sm btn-primary" [disabled]="reg.attendanceStatus" (click)="markAttendance(reg.registrationId)">Mark</button></div>
+    </div>
+  </div>
+</div>

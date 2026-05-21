@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend-api:
+    build:
+      context: .
+      dockerfile: EMS.API/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=host.docker.internal;Database=EMSFinalDB;Trusted_Connection=True;TrustServerCertificate=true
+    networks:
+      - ems-net
+
+  frontend:
+    build:
+      context: ./Frontend/AngularApp
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-api
+    networks:
+      - ems-net
+
+networks:
+  ems-net:
+    driver: bridge

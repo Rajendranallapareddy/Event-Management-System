@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h2>Admin Dashboard</h2>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <h5 class="card-title">Events</h5>
+          <h2>{{ stats.totalEvents }}</h2>
+          <a routerLink="/admin/events" class="text-white text-decoration-none">Manage Events →</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">Speakers</h5>
+          <h2>{{ stats.totalSpeakers }}</h2>
+          <a routerLink="/admin/speakers" class="text-white text-decoration-none">Manage Speakers →</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-info">
+        <div class="card-body">
+          <h5 class="card-title">Registrations</h5>
+          <h2>{{ stats.totalRegistrations }}</h2>
+          <a routerLink="/admin/attendance" class="text-white text-decoration-none">Manage Registrations →</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Participants</h5>
+          <h2>{{ stats.totalParticipants }}</h2>
+          <a routerLink="/admin/participants" class="text-white text-decoration-none">Manage Participants →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

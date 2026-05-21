@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div *ngIf="loading" class="text-center">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="event">
+    <h2>{{ event.title }}</h2>
+    <p>{{ event.description }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p><strong>Date:</strong> {{ event.startDate | date:'medium' }} – {{ event.endDate | date:'medium' }}</p>
+    <p><strong>Capacity:</strong> {{ event.capacity }}</p>
+    <img *ngIf="event.imageUrl" [src]="event.imageUrl" class="img-fluid mb-3" style="max-height: 300px;">
+    
+    <div class="mt-4">
+      <h3>Sessions</h3>
+      <div class="list-group">
+        <div *ngFor="let session of sessions" class="list-group-item">
+          <h5>{{ session.title }}</h5>
+          <p>{{ session.description }}</p>
+          <p><strong>Speaker:</strong> {{ session.speakerName || 'TBA' }}</p>
+          <p><strong>Time:</strong> {{ session.sessionStart | date:'short' }} – {{ session.sessionEnd | date:'short' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4" *ngIf="authService.isAuthenticated() && !registered && authService.currentUserValue?.role === 'Participant'">
+      <button class="btn btn-success" (click)="register()">Register for this event</button>
+    </div>
+    <div class="mt-4" *ngIf="registered">
+      <div class="alert alert-info">You are already registered for this event.</div>
+    </div>
+  </div>
+</div>

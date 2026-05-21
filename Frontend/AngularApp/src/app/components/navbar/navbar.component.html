@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">
+      <i class="fas fa-calendar-alt me-2"></i>Event Management System Portal
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" routerLink="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/events">Events</a></li>
+
+        <li class="nav-item">
+  <a class="nav-link" routerLink="/developer"><i class="fas fa-user-circle me-1"></i>Developer</a>
+</li>
+
+        <ng-container *ngIf="!currentUser">
+          <li class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/register">Register</a></li>
+        </ng-container>
+
+        <ng-container *ngIf="currentUser">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
+              <i class="fas fa-user-circle me-1"></i>{{ currentUser.fullName }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li *ngIf="currentUser.role === 'Admin'"><a class="dropdown-item" routerLink="/admin/dashboard">Dashboard</a></li>
+              <li *ngIf="currentUser.role === 'Admin'"><a class="dropdown-item" routerLink="/admin/events">Manage Events</a></li>
+              <li *ngIf="currentUser.role === 'Admin'"><a class="dropdown-item" routerLink="/admin/sessions">Manage Sessions</a></li>
+              <li *ngIf="currentUser.role === 'Admin'"><a class="dropdown-item" routerLink="/admin/speakers">Manage Speakers</a></li>
+              <li *ngIf="currentUser?.role === 'Admin'"><a class="dropdown-item" routerLink="/admin/attendance">Manage Attendance</a></li>
+              <li *ngIf="currentUser.role === 'Participant'"><a class="dropdown-item" routerLink="/participant/events">My Events</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h2>Manage Participants</h2>
+  <div *ngIf="loading" class="text-center">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table class="table table-striped" *ngIf="!loading && participants.length">
+    <thead>
+      <tr><th>Name</th><th>Email</th><th>Registered Since</th></thead>
+    <tbody>
+      <tr *ngFor="let p of participants">
+        <td>{{ p.fullName }}</td>
+        <td>{{ p.email }}</td>
+        <td>{{ p.createdDate | date:'mediumDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

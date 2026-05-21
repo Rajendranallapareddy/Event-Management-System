@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h2>Manage Attendance</h2>
+  <div *ngIf="loading" class="text-center">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table class="table table-striped" *ngIf="!loading && registrations.length">
+    <thead>
+      <tr><th>Event</th><th>Participant Email</th><th>Registration Date</th><th>Status</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reg of registrations">
+        <td>{{ reg.eventTitle }}</td>
+        <td>{{ reg.participantEmail || 'N/A' }}</td>
+        <td>{{ reg.registrationDate | date:'medium' }}</td>
+        <td>
+          <span class="badge" [ngClass]="reg.attendanceStatus ? 'bg-success' : 'bg-warning'">
+            {{ reg.attendanceStatus ? 'Attended' : 'Pending' }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="markAttendance(reg.registrationId)" [disabled]="reg.attendanceStatus">
+            Mark Attendance
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

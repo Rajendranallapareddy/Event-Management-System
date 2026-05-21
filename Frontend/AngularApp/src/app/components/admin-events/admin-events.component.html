@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Manage Events</h2>
+    <button class="btn btn-primary" routerLink="/admin/events/create">+ Create Event</button>
+  </div>
+  <div *ngIf="loading" class="text-center">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table class="table table-striped" *ngIf="!loading && events.length">
+    <thead>
+      <tr><th>ID</th><th>Title</th><th>Location</th><th>Start Date</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of events">
+        <td>{{ e.eventId }}</td>
+        <td>{{ e.title }}</td>
+        <td>{{ e.location }}</td>
+        <td>{{ e.startDate | date:'shortDate' }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="editEvent(e.eventId)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteEvent(e.eventId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between mt-3" *ngIf="totalPages > 0">
+    <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>

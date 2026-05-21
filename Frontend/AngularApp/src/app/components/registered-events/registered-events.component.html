@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>My Registered Events</h2>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="!loading && registrations.length === 0" class="alert alert-info">
+    No registrations. <a routerLink="/events">Browse events</a>
+  </div>
+  <div class="list-group" *ngIf="!loading && registrations.length > 0">
+    <div *ngFor="let reg of registrations" class="list-group-item">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h5>{{ reg.eventTitle }}</h5>
+          <p>Registered: {{ reg.registrationDate | date:'medium' }}</p>
+          <span class="badge" [ngClass]="reg.attendanceStatus ? 'bg-success' : 'bg-warning'">
+            {{ reg.attendanceStatus ? 'Attended' : 'Pending' }}
+          </span>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-info me-2" (click)="viewSessions(reg.eventId, reg.eventTitle)">View Sessions</button>
+          <button class="btn btn-sm btn-danger" (click)="cancelRegistration(reg.registrationId)">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sessions Modal -->
+<div class="modal fade" [class.show]="showSessionsModal" style="display:block" *ngIf="showSessionsModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5>Sessions for: {{ selectedEventTitle }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="sessionsLoading">Loading sessions...</div>
+        <div *ngIf="sessionsError" class="alert alert-danger">{{ sessionsError }}</div>
+        <div *ngIf="!sessionsLoading && !sessionsError && sessions.length === 0" class="alert alert-info">No sessions scheduled for this event.</div>
+        <div class="list-group" *ngIf="!sessionsLoading && !sessionsError && sessions.length > 0">
+          <div *ngFor="let s of sessions" class="list-group-item">
+            <h6>{{ s.title }}</h6>
+            <p>{{ s.description }}</p>
+            <small><strong>Speaker:</strong> {{ s.speakerName || 'TBA' }}</small><br>
+            <small><strong>Time:</strong> {{ s.sessionStart | date:'short' }}</small>
+            <a *ngIf="s.sessionUrl" [href]="s.sessionUrl" target="_blank" class="btn btn-sm btn-success mt-2">Join</a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showSessionsModal" (click)="closeModal()"></div>
