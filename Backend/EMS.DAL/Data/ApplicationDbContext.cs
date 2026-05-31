@@ -28,8 +28,7 @@ namespace EMS.DAL.Data
                 Role = "Admin",
                 CreatedDate = DateTime.UtcNow
             });
-            
-            // Seed demo events, speakers, sessions 
+             
             modelBuilder.Entity<Event>().HasData(
                 new Event { EventId = 1, Title = "Tech Summit 2025", Description = "Annual technology conference", Location = "Bangalore", StartDate = DateTime.UtcNow.AddDays(30), EndDate = DateTime.UtcNow.AddDays(32), Capacity = 200, ImageUrl = "https://picsum.photos/300/200" },
                 new Event { EventId = 2, Title = "AI Workshop", Description = "Hands-on AI/ML workshop", Location = "Online", StartDate = DateTime.UtcNow.AddDays(15), EndDate = DateTime.UtcNow.AddDays(16), Capacity = 50 }
